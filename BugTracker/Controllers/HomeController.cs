@@ -8,45 +8,34 @@ using Microsoft.Extensions.Logging;
 using BugTracker.Models;
 using MongoDB.Driver;
 using Microsoft.Extensions.Options;
+using BugTracker.Interfaces;
 
 namespace BugTracker.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-  /*      public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
-
-        public IActionResult Index()
-        {
-            return View();
-        }
-        */
         public IActionResult Privacy()
         {
             return View();
         }
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-        IMongoDatabase _database;
-
-        public HomeController(IOptions<Settings> settings)
-        {
-            var mclient = new
-             MongoClient(settings.Value.ConnectionString);
-            _database = mclient.GetDatabase(settings.Value.Database);
-        }
-
-        public IActionResult Index()
-        {
-            return Json(_database.Client.Cluster.Description);
-        }
+//        IMongoDatabase _database;
+          
+         private readonly IWorkItemService _workItemService; 
+ 
+         public HomeController(IWorkItemService workItemService) 
+               { 
+                 _workItemService = workItemService; 
+               } 
+         public IActionResult Index() 
+         { 
+            var workItems = _workItemService.GetAllWorkItems(); 
+            return View(workItems); 
+         } 
     }
 }
