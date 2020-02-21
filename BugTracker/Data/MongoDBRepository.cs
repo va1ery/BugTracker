@@ -26,5 +26,6 @@ namespace BugTracker.Data
                 throw new Exception("There was a problem connecting to the MongoDB database", ex); 
             }
         }
+        public IMongoCollection<WorkItem> WorkItems => Database.GetCollection<WorkItem>("workitem");
     }
 }
