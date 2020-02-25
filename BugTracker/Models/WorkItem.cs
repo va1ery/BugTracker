@@ -14,5 +14,17 @@ namespace BugTracker.Models
         public int Severity { get; set; }
         public string WorkItemType { get; set; }
         public string AssignedTo { get; set; }
+    public WorkItem() 
+    { 
+ 
+    }  
+    public WorkItem(AddWorkItem addWorkItem) 
+       { 
+        Title = addWorkItem.Title; 
+        Description = addWorkItem.Description; 
+        Severity = addWorkItem.Severity; 
+        WorkItemType = addWorkItem.WorkItemType; 
+        AssignedTo = addWorkItem.AssignedTo; 
+        } 
     }
 }

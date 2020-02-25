@@ -37,5 +37,9 @@ namespace BugTracker.Controllers
             var workItems = _workItemService.GetAllWorkItems(); 
             return View(workItems); 
          } 
-    }
+         public ActionResult AddWorkItem() 
+            { 
+                return RedirectToAction("AddItem", "AddWorkItem"); 
+            } 
+     }
 }

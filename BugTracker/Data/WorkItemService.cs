@@ -4,14 +4,38 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+// using System.Collections.Generic;
+// using System.Threading.Tasks;
+// using BugTracker.Interfaces;
+// using BugTracker.Models;
+using Microsoft.Extensions.Options;
+using MongoDB.Bson;
+using MongoDB.Driver;
+
 
 namespace BugTracker.Data
 {
     public class WorkItemService : IWorkItemService
     {
-        public IEnumerable<WorkItem> GetAllWorkItems()
+        private readonly MongoDBRepository repository;
+
+        public WorkItemService(IOptions<Settings> settings)
+        {
+            repository = new MongoDBRepository(settings);
+        }
+        
+        IEnumerable<WorkItem> IWorkItemService.GetAllWorkItems()
+        {
+            return repository.WorkItems.Find(x => true).ToList();
+        }
+/*         public IEnumerable<WorkItem> GetAllWorkItems()
         {
             throw new NotImplementedException();
-        }
+        } */
+        public void InsertWorkItem(WorkItem workItem) 
+        { 
+            //throw new System.NotImplementedException(); 
+            repository.WorkItems.InsertOne(workItem);
+        } 
     }
 }

@@ -1,3 +1,10 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace BugTracker.Models
+{
 public class AddWorkItem 
 { 
     public string Title { get; set; } 
@@ -5,4 +12,5 @@ public class AddWorkItem
     public int Severity { get; set; } 
     public string WorkItemType { get; set; } 
     public string AssignedTo { get; set; } 
+}
 }

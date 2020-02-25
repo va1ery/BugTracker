@@ -12,6 +12,7 @@ namespace BugTracker.Interfaces
     public interface IWorkItemService
     {
         IEnumerable<WorkItem> GetAllWorkItems();
+        void InsertWorkItem(WorkItem workItem);
     }
     public class WorkItemService : IWorkItemService
     {
@@ -20,11 +21,20 @@ namespace BugTracker.Interfaces
         public WorkItemService(IOptions<Settings> settings)
         {
             repository = new MongoDBRepository(settings);
-        }
-
+        }        
         public IEnumerable<WorkItem> GetAllWorkItems()
         {
             return repository.WorkItems.Find(x => true).ToList();
         }
+        public void InsertWorkItem(WorkItem workItem) 
+            { 
+        //        throw new System.NotImplementedException(); 
+            repository.WorkItems.InsertOne(workItem);
+            }
+        public interface IWorkItemService 
+           { 
+             IEnumerable<WorkItem> GetAllWorkItems(); 
+             void InsertWorkItem(WorkItem workItem); 
+           } 
     }
 }
